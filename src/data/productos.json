@@ -1,0 +1,35 @@
+[
+    {
+      "id": 1,
+      "title": "Empanadas",
+      "description": "Comida",
+      "code": "code001",
+      "price": 500,
+      "status": true,
+      "stock": 50,
+      "category": "Alimentos",
+      "thumbnail": "https://..."
+    },
+    {
+      "id": 2,
+      "title": "Coca Cola",
+      "description": "Bebidas",
+      "code": "code002",
+      "price": 600,
+      "status": true,
+      "stock": 600,
+      "category": "Bebidas",
+      "thumbnail": "https://..."
+    },
+    {
+      "id": 3,
+      "title": "Fideos",
+      "description": "Alimentos",
+      "code": "code003",
+      "price": 450,
+      "status": true,
+      "stock": 900,
+      "category": "Alimentos",
+      "thumbnail": "https://..."
+    }
+  ]
