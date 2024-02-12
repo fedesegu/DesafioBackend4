@@ -1,69 +1,66 @@
-import { Router } from "express";
-import { CartManager } from "../manager/cartManager.js";
+import { Router } from 'express';
+import { cartManager } from '../manager/cartManager.js';
 
-const routerCart = Router();
-const cartManager = new CartManager();
+const router = Router();
 
-routerCart.get("/", async (req, res) => {
-  try {
-    let cart = await cartManager.getCart();
+router.get("/", async (req, res) => {
+    try {
+        const carts = await cartManager.getCartsList();
 
-    res.status(200).json({ message: "Total Cart", cart });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+        if (!carts || carts.length === 0) {
+            return res.status(404).json({ message: "No carts found" });
+        }
 
-routerCart.get("/:cid", async (req, res) => {
-  const { cid } = req.params;
-
-  try {
-    let cartFiltrado = await cartManager.getCartById(+cid);
-
-    if (!cartFiltrado) {
-      res.status(404).json({ message: "cart not found" });
-    } else {
-      res.status(200).json({ message: "cart found", cartFiltrado });
+        res.status(200).json({ message: "Carts found", carts });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server internal error" });
     }
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-routerCart.post("/", async (req, res) => {
-  try {
-    let response = await cartManager.addCart();
-    res.json({ response });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
 });
 
-routerCart.delete("/:id", async (req, res) => {
-  const { id } = req.params;
+router.post("/", async (req, res) => {
 
-  try {
-    let response = await cartManager.deleteCartById(+id);
-
-    if (!response) {
-      return res.status(404).json({ message: "Cart not found" });
+    try {
+        const cart = await cartManager.createCart();
+        res.status(201).json({ message: "Cart created", cart });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
     }
-
-    res.status(200).json({ message: "Cart delete" });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
 });
 
-routerCart.post("/:cid/product/:pid", async (req, res) => {
-  const { cid } = req.params;
-  const { pid } = req.params;
+router.get("/:cid", async (req, res) => {
+    const { cid } = req.params;
 
-  try {
-    let response = await cartManager.addProductInCart(+cid, +pid);
-    res.json({ response, message: "Added product" });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+    try {
+        const cart = await cartManager.getCartById(+cid);
+
+        if (!cart) {
+            return res.status(404).json({ message: "Cart not found" });
+        }
+
+        res.status(200).json({ message: "Cart found", cart });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
 });
 
-export { routerCart };
+router.post("/:cid/product/:pid", async (req, res) => {
+    const { cid, pid } = req.params;
+
+    try {
+        const response = await cartManager.addProductCart(+cid, +pid);
+        console.log(response);
+        if (!response) {
+            return res.status(404).json({ message: "Cart not found" });
+        }
+
+        res.status(200).json({ message: "Product added to cart", cart: response });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+export default router;

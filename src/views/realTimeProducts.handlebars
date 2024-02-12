@@ -1,58 +1,36 @@
-<h2>Agregar producto</h2>
-<form id="Form agregar producto">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DATA BASE ON REAL TIME</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+ 
 
-  Title:
-  <input type="string" name="title" id="title" />
+    <h3>DATA BASE ON REAL TIME</h3>
+    
+    <form id="formAgregar" method="post">
+        TITLE: <input type="text" name="title" id="title" required>
+        DESCRIPTION: <input type="text" name="description" id="description" required>
+        PRICE: <input type="number" name="price" id="price" required>
+        STOCK: <input type="number" name="stock" id="stock" required>
+        CODE: <input type="number" name="code" id="code" required>
+        CATEGORY: <input type="text" name="category" id="category" required>
 
-  Description:
-  <input type="string" name="description" id="description" />
+        <input type="submit" name="accion" id="submitAdd" value="AGREGAR">
+    </form>
 
-  Status:
-  <input type="boolean" name="status" id="status" />
+    <form id="formEliminar" method="post">
+        ID: <input type="number" name="id" id="id" required>
+        <input type="submit" name="accion" id="submitDel" value="ELIMINAR">
+    </form>
 
-  Price:
-  <input type="number" name="price" id="price" />
+    <ul id="listaDeProductos"></ul>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/src/public/index.js"></script>
 
-  Code:
-  <input type="string" name="code" id="code" />
-
-  Stock:
-  <input type="number" name="stock" id="stock" />
-
-  Category:
-  <input type="string" name="category" id="category" />
-
-  Thumbnails:
-  <input type="string" name="thumbnails" id="thumbnails" />
-
-  Id:
-  <input type="string" name="Id" id="Id" />
-
-  <input type="submit" value="ENVIAR" />
-
-</form>
-
-<br></br>
-
-<h2>Eliminar producto</h2>
-<form id="Form delete product">
-
-  Title:
-  <input type="string" name="title" id="titleDelete" />
-
-  Id:
-  <input type="string" name="Id" id="idDelete" />
-
-  <input type="submit" value="ENVIAR PRODUCTO A ELIMINAR" />
-
-</form>
-
-<br></br>
-
-<h2>Lista de productos</h2>
-<div id="divRealTimeProduct">
-
-</div>
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/index.js"></script>
+</body>
+</html>

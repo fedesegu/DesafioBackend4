@@ -1,10 +1,18 @@
-{{#each products}}
-  <h2>{{this.title}}</h2>
-  <p>{{this.description}}</p>
-  <p> {{this.price}}</p>
-  <p> {{this.code}}</p>
-  <p> {{this.category}}</p>
-  <p> {{this.stock}}</p>
-  <p> {{this.thumbnails}}</p>
-  <p> {{this.id}}</p>
-{{/each}}
+<h2>PRODUCTS</h2>
+
+{{#if products}}
+
+    {{#each products}}
+        <H4>ID: {{id}}</H4>
+        <H4>TITLE: {{title}}</H4>
+        <H4>DESCRIPTION: {{descripcion}}</H4>
+        <H4>PRICE: $ {{price}}</H4>
+        <H4>STOCK: {{stock}}</H4>
+        <H4>CODE: {{code}}</H4>
+        <H4>CATEGORY: {{category}}</H4>
+        <h4>STATUS: {{status}}</h4>
+    {{/each}}
+    
+{{else}}
+<p> There's no products on the DB </p>
+{{/if}}
