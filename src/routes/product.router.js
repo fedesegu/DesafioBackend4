@@ -1,6 +1,6 @@
 import {Router} from 'express'
 import { __dirname } from "../utils.js"
-import {productManager} from '../manager/productManager.js'
+import {productsManager} from '../manager/productManager.js'
 
 const router = Router();
 
@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
     const { limit } = req.query;
     
     try {
-        const products = await productManager.getProductList(+limit);
+        const products = await productsManager.getProductList(+limit);
         if (limit) {
             const productsLimit = products.slice(0, parseInt(limit))
             res.status(200).json({ message: "Products found", products: productsLimit });
@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
 router.get("/:pid", async (req, res) => {
     const { pid } = req.params;
     try {
-        const product = await productManager.getProductById(+pid);
+        const product = await productsManager.getProductById(+pid);
         if (!product) {
             return res
             .status(404)
@@ -42,7 +42,7 @@ router.post("/", async (req, res) => {
         return res.status(400).json({ message: "Some data is missing" });
     }
     try {
-        const response = await productManager.addProduct(req.body);
+        const response = await productsManager.addProduct(req.body);
         res.status(200).json({ message: "Product created", response });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -51,7 +51,7 @@ router.post("/", async (req, res) => {
 router.delete("/:pid", async (req, res) => {
     const { pid } = req.params;
     try {
-        const response = await productManager.deleteProductById(+pid);
+        const response = await productsManager.deleteProductById(+pid);
         if (!response) {
             return res
             .status(404)
@@ -65,7 +65,7 @@ router.delete("/:pid", async (req, res) => {
 router.put("/:pid", async (req, res) => {
     const { pid } = req.params;
     try {
-        const response = await productManager.updateProduct(+pid, req.body);
+        const response = await productsManager.updateProduct(+pid, req.body);
         console.log(req.body);
         if (!response) {
             return res
@@ -84,9 +84,9 @@ router.post("/change", async (req, res) => {
 
     try {
         if (accion === "AGREGAR") {
-            const productNew = productManager.addProduct(req.body);
+            const productNew = productsManager.addProduct(req.body);
         } 
-        else {
+        else {s
             Manager.deleteProductById(+id);
         }
         res.status(200).send("Succesfull operation");

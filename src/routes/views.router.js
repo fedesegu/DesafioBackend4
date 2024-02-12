@@ -1,11 +1,11 @@
 import { Router } from "express";
-import {productManager} from '../manager/productManager'
+import {productsManager} from '../manager/productManager.js'
 
 const router = Router();
 
 router.get("/home", async (req, res) => {
     try {
-        const products = await productManager.getProductList();
+        const products = await productsManager.getProductList();
     res.render("home", { products });
     } catch {
         error

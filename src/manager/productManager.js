@@ -92,4 +92,4 @@ class productManager {
       }
     }
 
-export const productManager = new productManager();
+export const productsManager = new productManager();

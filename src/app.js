@@ -5,7 +5,7 @@ import viewsRouter from "./routes/views.router.js";
 import { __dirname } from "./utils.js";
 import { Server } from "socket.io";
 import { engine } from "express-handlebars";
-import { productManager } from './manager/productManager.js';
+import { productsManager } from './manager/productManager.js';
 
 
 const app = express();
@@ -29,14 +29,14 @@ const socketServer = new Server(httpServer);
 
 socketServer.on('connection', async (socket) => {
     try {
-        const productosActualizados = await productManager.getProductList();
+        const productosActualizados = await productsManager.getProductList();
         socketServer.emit('productosActualizados', productosActualizados);
         console.log('A client has been connect');
 
         socket.on('agregado', async (nuevoProducto) => {
             try {
-                const products = await productManager.addProduct(nuevoProducto);
-                const productosActualizados = await productManager.getProductList();
+                const products = await productsManager.addProduct(nuevoProducto);
+                const productosActualizados = await productsManager.getProductList();
                 console.log(productosActualizados);
 
                 socketServer.emit('productosActualizados', productosActualizados);
@@ -47,8 +47,8 @@ socketServer.on('connection', async (socket) => {
 
         socket.on('eliminar', async (id) => {
             try {
-                const products = await productManager.deleteProductById(id);
-                const productosActualizados = await productManager.getProductList();
+                const products = await productsManager.deleteProductById(id);
+                const productosActualizados = await productsManager.getProductList();
                 console.log(productosActualizados);
             
                 socketServer.emit('productosActualizados', productosActualizados);

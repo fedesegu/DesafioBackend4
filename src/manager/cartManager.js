@@ -1,7 +1,7 @@
 import { existsSync, promises } from "fs";
 const path = "CartsFile.json";
 
-class Carts {
+class CartManager {
     async getCartsList() {
         try {
         if (existsSync(path)) {
