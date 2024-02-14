@@ -86,8 +86,8 @@ router.post("/change", async (req, res) => {
         if (accion === "AGREGAR") {
             const productNew = productsManager.addProduct(req.body);
         } 
-        else {s
-            Manager.deleteProductById(+id);
+        else {
+            productsManager.deleteProductById(+id);
         }
         res.status(200).send("Succesfull operation");
 
